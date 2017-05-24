@@ -1,6 +1,23 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../paper-button/paper-button.html"/>
+<link rel="import" href="../paper-dialog/paper-dialog.html"/>
 <link rel="import" href="../paper-dialog-scrollable/paper-dialog-scrollable.html"/>
+
+<!--
+`cuba-lookup` component provides an ability to specify entity `-list` component
+in order to select an entity instance for a reference attribute.
+The list component should be marked with `.lookup-screen` class.
+
+
+    <link rel="demo-manufacturers-by-country.html">
+
+    <cuba-lookup picked-entity="{{entity.manufacturer}}">
+      <div class="dropdown">
+      ...
+      </div>
+      <demo-manufacturers-by-country class="lookup-screen"></demo-manufacturers-by-country>
+    </cuba-lookup>
+-->
 
 <dom-module id="cuba-lookup">
   <template>
@@ -49,10 +66,17 @@
     Polymer({
       is: 'cuba-lookup',
       properties: {
+        /**
+         * Entity which has been picked by user.
+         */
         pickedEntity: {
           type: Object,
           notify: true
         },
+
+        /**
+         * Entity which is currently selected in lookup dialog.
+         */
         selectedEntity: {
           type: Object,
           notify: true,
