@@ -36,7 +36,7 @@
       this.$.data.loadMore();
     },
     _computeMoreDataAvailable: function(entities, entitiesCount) {
-      return entities.length < entitiesCount;
+      return entities != null && entitiesCount != null && entities.length < entitiesCount;
     },
     _handleItemTap: function(event) {
       this.fire('item-tap', event.model.item);
