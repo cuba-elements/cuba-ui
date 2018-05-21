@@ -63,14 +63,38 @@
   </template>
   <script>
     {
+      /**
+       *  `<cuba-progress-indicator>` is a Polymer 2 element for data loading progress indication.
+       *
+       * ```html
+       * <cuba-progress-indicator></cuba-progress-indicator>
+       * ```
+       *
+       * ### Styling
+       *
+       * `<cuba-progress-indicator>` provides the following custom properties and mixins
+       * for styling:
+       *
+       * Custom property | Description | Default
+       * ----------------|-------------|----------
+       * `--progress-height` | Height of the progress indicator | `3px`
+       * `--progress-color`  | Color of the progress indicator  |  `#0040a8`
+       *
+       */
       class CubaProgressIndicator extends Polymer.Element {
+        constructor() {
+          super();
+          this._loadingStartListener = this._incrementCounter.bind(this);
+          this._loadingFinishListener = this._decrementCounter.bind(this)
+        }
+
         static get is() {
           return 'cuba-progress-indicator'
         }
 
         static get properties() {
           return {
-            loadingCounter: {
+            _loadingCounter: {
               type: Number,
               value: 0,
               readOnly: true,
@@ -82,25 +106,25 @@
         connectedCallback() {
           super.connectedCallback();
 
-          document.body.addEventListener('cuba-data-loading-start', this._incrementCounter.bind(this));
-          document.body.addEventListener('cuba-data-loading-finish', this._decrementCounter.bind(this));
-          document.body.addEventListener('cuba-data-loading-error', this._decrementCounter.bind(this));
+          document.body.addEventListener('cuba-data-loading-start', this._loadingStartListener);
+          document.body.addEventListener('cuba-data-loading-finish', this._loadingFinishListener);
+          document.body.addEventListener('cuba-data-loading-error', this._loadingFinishListener);
         }
 
         disconnectedCallback() {
           super.disconnectedCallback();
 
-          document.body.removeEventListener('cuba-data-loading-start', this._incrementCounter.bind(this));
-          document.body.removeEventListener('cuba-data-loading-finish', this._decrementCounter.bind(this));
-          document.body.removeEventListener('cuba-data-loading-error', this._decrementCounter.bind(this));
+          document.body.removeEventListener('cuba-data-loading-start', this._loadingStartListener);
+          document.body.removeEventListener('cuba-data-loading-finish', this._loadingFinishListener);
+          document.body.removeEventListener('cuba-data-loading-error', this._loadingFinishListener);
         }
 
         _incrementCounter() {
-          this._setLoadingCounter(this.loadingCounter + 1);
+          this._set_loadingCounter(this._loadingCounter + 1);
         }
 
         _decrementCounter() {
-          this._setLoadingCounter(this.loadingCounter - 1);
+          this._set_loadingCounter(this._loadingCounter - 1);
         }
 
         _counterChanged(counter) {
