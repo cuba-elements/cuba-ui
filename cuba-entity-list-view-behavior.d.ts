@@ -15,8 +15,8 @@ interface CubaEntityListViewBehavior {
   readonly moreDataAvailable: boolean|null|undefined;
   dataLoading: boolean|null|undefined;
   selectedEntity: object|null|undefined;
-  reload(): any;
-  remove(entity: any): void;
+  reload(): Promise<any>;
+  remove(entity: any): Promise<any>|null;
   _loadMore(): void;
   _computeMoreDataAvailable(entities: any, entitiesCount: any): any;
   _handleItemTap(event: any): void;
