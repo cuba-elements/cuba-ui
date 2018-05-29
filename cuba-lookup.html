@@ -68,6 +68,8 @@ The list component should be marked passed into `lookup-screen` slot.
       properties: {
         /**
          * Entity which has been picked by user.
+         *
+         * @type {Object}
          */
         pickedEntity: {
           type: Object,
@@ -76,6 +78,8 @@ The list component should be marked passed into `lookup-screen` slot.
 
         /**
          * Entity which is currently selected in lookup dialog.
+         *
+         * @type {Object}
          */
         selectedEntity: {
           type: Object,
@@ -93,6 +97,11 @@ The list component should be marked passed into `lookup-screen` slot.
           }.bind(this));
         }
       },
+      /**
+       * Shows lookup screen
+       *
+       * @return {void}
+       */
       showLookupScreen: function() {
         this._lookupElement.reload().then(function() {
           this.$.lookupDialog.open();

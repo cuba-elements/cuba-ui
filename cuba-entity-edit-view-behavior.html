@@ -3,11 +3,39 @@
    * @polymerBehavior CubaEntityEditViewBehavior
    */
   CubaEntityEditViewBehavior = {
+
+    /**
+     * Fired when an entity successfully saved.
+     *
+     * @event commit
+     */
+
+    /**
+     * Fired when user cancels changes.
+     *
+     * @event cancel
+     */
+
+    /**
+     * Fired when when user deletes an entity.
+     *
+     * @event delete
+     * @param {Object} entity The entity to delete
+     */
+
     properties: {
+      /**
+       * Id of entity that will be loaded
+       */
       entityId: {
         type: String,
         observer: '_handleEntityIdChange'
       },
+      /**
+       * Loaded entity
+       *
+       * @type {Object}
+       */
       entity: {
         type: Object,
         value: function() {
