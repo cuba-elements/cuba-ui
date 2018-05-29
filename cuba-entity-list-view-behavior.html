@@ -4,30 +4,69 @@
    */
   CubaEntityListViewBehavior = {
 
+    /**
+     * Fired when user taps on item.
+     *
+     * @event item-tap
+     */
+
     properties: {
+      /**
+       * Indicates if data is loading
+       */
       active: {
         type: Boolean,
         value: false
       },
+      /**
+       * Loaded entities
+       *
+       * @type {Array<Object>}
+       */
       entities: Array,
+      /**
+       * Number of entities
+       */
       entitiesCount: Number,
+      /**
+       * Indicates if more data is available
+       */
       moreDataAvailable: {
         type: Boolean,
         computed: '_computeMoreDataAvailable(entities, entitiesCount, entities.*)',
         value: false
       },
+      /**
+       * Indicates if data is currently loading
+       */
       dataLoading: {
         type: Boolean,
         notify: true
       },
+      /**
+       * Entity that is currently selected
+       *
+       * @type {Object}
+       */
       selectedEntity: {
         type: Object,
         notify: true
       }
     },
+    /**
+     * Reloads entities
+     *
+     * @return {Promise}
+     */
     reload: function() {
       return this.$.data.load();
     },
+    /**
+     * Removes entity
+     *
+     * @param {Object} entity The entity to remove
+     * @return {Promise}
+     */
     remove: function(entity) {
       return this.$.data.remove(entity);
     },
