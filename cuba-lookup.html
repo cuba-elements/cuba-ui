@@ -1,7 +1,4 @@
 <link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../paper-button/paper-button.html"/>
-<link rel="import" href="../paper-dialog/paper-dialog.html"/>
-<link rel="import" href="../paper-dialog-scrollable/paper-dialog-scrollable.html"/>
 
 <!--
 `cuba-lookup` component provides an ability to specify entity `-list` component
@@ -34,7 +31,7 @@ The list component should be marked passed into `lookup-screen` slot.
       .lookup-toggle {
         padding-top: 20px;
       }
-      paper-dialog#lookupDialog {
+      #lookupDialog {
         width: 100%;
         max-width: 900px;
       }
@@ -51,15 +48,17 @@ The list component should be marked passed into `lookup-screen` slot.
       </template>
     </div>
 
-    <paper-dialog id="lookupDialog">
-      <paper-dialog-scrollable>
-        <slot id="lookupContent" name="lookup-screen"></slot>
-      </paper-dialog-scrollable>
-      <div class="buttons">
-        <paper-button on-tap="_cancel">Cancel</paper-button>
-        <paper-button autofocus on-tap="_select" disabled$="[[!selectedEntity]]">Select</paper-button>
-      </div>
-    </paper-dialog>
+    <vaadin-dialog id="lookupDialog">
+      <template>
+        <div class="content">
+          <slot id="lookupContent" name="lookup-screen"></slot>
+        </div>
+        <div class="buttons">
+          <vaadin-button on-tap="_cancel">Cancel</vaadin-button>
+          <vaadin-button autofocus on-tap="_select" disabled$="[[!selectedEntity]]">Select</vaadin-button>
+        </div>
+      </template>
+    </vaadin-dialog>
 
   </template>
   <script>
